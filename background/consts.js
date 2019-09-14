@@ -1,5 +1,8 @@
-consts = {
-  ages: {
+'use strict'
+
+const consts = {
+  eras: {
+    NoAge: 1,
     AllAge: 1,
     MultiAge: 1,
     StoneAge: 2,
@@ -18,46 +21,47 @@ consts = {
     FutureEra: 14,
     ArcticFuture: 15,
     OceanicFuture: 16,
-    VirtualFuture: 17
+    VirtualFuture: 17,
+    SpaceAgeMars: 18
   },
 
-  getGoodsAge: function (goodName) {
-    if (!consts.goods.hasOwnProperty(goodName)) {
-      sendNotification('missingGood', 'error', goodName + ' is missing in goods');
-      return 1;
+  getResourcesEra: function (resourceName) {
+    if (!consts.resources.hasOwnProperty(resourceName)) {
+      sendNotification('missingResource', 'error', resourceName + ' is missing in resources')
+      return 1
     }
-    goodAge = consts.goods[goodName];
-    return consts.getAge(goodAge);
+    let resourceAge = consts.resources[resourceName].era
+    return consts.getEra(resourceAge)
   },
 
-  getAge: function (age) {
-    if (consts.ages[age] !== undefined) {
-      return consts.ages[age];
+  getEra: function (era) {
+    if (consts.eras[era] !== undefined) {
+      return consts.eras[era]
     }
 
-    sendNotification('missingAge', 'warning', age + ' is missing in ages');
+    sendNotification('missingAge', 'warning', era + ' is missing in eras')
 
-    return 1;
+    return 1
   },
 
-  valueGoods: function (goodsArray) {
-    amount = 0;
-    for (var goodName in goodsArray) {
-      if (goodsArray.hasOwnProperty(goodName) && consts.goods[goodName] !== undefined) {
-        amount += goodsArray[goodName] * Math.pow(2, consts.getGoodsAge(goodName) - 1);
+  valueResources: function (resourcesArray) {
+    let amount = 0
+    for (let resourceName in resourcesArray) {
+      if (resourcesArray.hasOwnProperty(resourceName) && consts.resources[resourceName] !== undefined && consts.resources[resourceName].era !== 'NoAge') {
+        amount += resourcesArray[resourceName] * Math.pow(2, consts.getResourcesEra(resourceName) - 1)
       }
     }
-    return amount;
+    return amount
   },
 
-  amountGoods: function (goodsArray) {
-    amount = 0;
-    for (var goodName in goodsArray) {
-      if (goodsArray.hasOwnProperty(goodName) && consts.goods[goodName] !== undefined) {
-        amount += goodsArray[goodName];
+  amountResources: function (resourcesArray) {
+    let amount = 0
+    for (let resourceName in resourcesArray) {
+      if (resourcesArray.hasOwnProperty(resourceName) && consts.resources[resourceName] !== undefined && consts.resources[resourceName].era !== 'NoAge') {
+        amount += resourcesArray[resourceName]
       }
     }
-    return amount;
+    return amount
   },
 
   units: {
@@ -108,9 +112,32 @@ consts = {
     lancer: { name: 'Lancer', type: 'fast' },
     rifleman: { name: 'Rifleman', type: 'ranged' },
     howitzer: { name: 'Howitzer', type: 'heavy' },
+    breech_loader: { name: 'Breech Loader', type: 'artillery' },
 
     // Progressive Era
     conscript: { name: 'Conscript', type: 'light' },
+    armored_car: { name: 'Armored Car', type: 'fast' },
+    tank: { name: 'Tank', type: 'heavy' },
+    sniper: { name: 'Sniper', type: 'ranged' },
+    rf_cannon: { name: 'Rapid Fire Cannon', type: 'artillery' },
+
+    // Modern
+    bazooka: { name: 'Bazooka Team', type: 'light' },
+    mech_artillery: { name: 'Mechanized Artillery', type: 'artillery' },
+    mech_infantry: { name: 'Mechanized Infantry', type: 'light' },
+    battle_tank: { name: 'Battle Tank', type: 'heavy' },
+    paratrooper: { name: 'Paratrooper', type: 'ranged' },
+
+    // Post modern
+    automatic_rifleman: { name: 'MG Team', type: 'ranged' },
+    commando: { name: 'Commando', type: 'light' },
+
+    // Virtual Future
+    ninja: { name: 'Ninja', type: 'ranged' },
+    augmented_samurai: { name: 'Augmented Samurai', type: 'light' },
+    warrior_monk: { name: 'Warrior Monk', type: 'fast' },
+    ronin_bot: { name: 'Ronin Bot', type: 'heavy' },
+    rocket_troop: { name: 'Rocket Troop', type: 'artillery' },
 
     // All Ages
     military_drummer: { name: 'Military Drummer', type: 'drum' },
@@ -118,10 +145,16 @@ consts = {
     rogue: { name: 'Rogue', type: 'rogue' },
 
     // Champions
-    IronAge_champion: { name: 'Champions', type: 'champ' },
-    EarlyMiddleAge_champion: { name: 'Champions', type: 'champ' },
-    HighMiddleAge_champion: { name: 'Champions', type: 'champ' },
-    LateMiddleAge_champion: { name: 'Champions', type: 'champ' },
-    ColonialAge_champion: { name: 'Champions', type: 'champ' }
+    BronzeAge_champion: { name: 'Champion', type: 'champ' },
+    IronAge_champion: { name: 'Champion', type: 'champ' },
+    EarlyMiddleAge_champion: { name: 'Champion', type: 'champ' },
+    HighMiddleAge_champion: { name: 'Champion', type: 'champ' },
+    LateMiddleAge_champion: { name: 'Champion', type: 'champ' },
+    ColonialAge_champion: { name: 'Champion', type: 'champ' },
+    IndustrialAge_champion: { name: 'Champion', type: 'champ' },
+    ProgressiveEra_champion: { name: 'Champion', type: 'champ' },
+    PostModernEra_champion: { name: 'Champion', type: 'champ' },
+    ModernEra_champion: { name: 'Champion', type: 'champ' },
+    VirtualFuture_champion: { name: 'Champion', type: 'champ' }
   }
-};
+}

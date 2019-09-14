@@ -1,0 +1,46 @@
+{
+  "name": "foei",
+  "version": "0.5.0",
+  "description": "Browser extension that helps you playing Forge of Empires, saving your time and (thereby) giving you an advantage over other players.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/veger/foei.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "game",
+    "forge-of-empires"
+  ],
+  "author": {
+    "name": "Maarten Bezemer",
+    "email": "maarten.bezemer@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/veger/foei/issues"
+  },
+  "homepage": "https://github.com/veger/foei#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-mocha": "^5.3.0",
+    "eslint-plugin-momentjs": "0.0.7",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "sinon": "^7.3.2",
+    "sinon-chrome": "^3.0.1",
+    "sinon-stub-promise": "^4.0.0"
+  },
+  "scripts": {
+    "lint": "eslint *.js background/*.js  ui/*.js",
+    "release": "if [ -z \"$KEY\" ]; then echo \"\nERROR: KEY missing\n\n\"; exit 1; fi && rm -rf foei.crx dist && mkdir dist && cp -r background images ui ajax_inspect.js inject.js LICENSE manifest.json options* dist && google-chrome-unstable --pack-extension=dist --pack-extension-key=$(readlink -f $PWD/$KEY) && mv dist.crx foei.crx",
+    "test": "nyc --hook-run-in-this-context --reporter text --reporter lcov mocha --require test/setup.js \"test/specs/**/*.test.js\""
+  }
+}

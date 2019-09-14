@@ -1,0 +1,6 @@
+{
+    "mocha.requires": [
+        "test/setup.js"
+    ],
+    "mocha.options": {}
+}
